@@ -21,8 +21,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "GeneaLabs\\LaravelMultiTenantManager\\Providers\\Tool",
-                "GeneaLabs\\LaravelMultiTenantManager\\Providers\\Nova"
+                "GeneaLabs\\LaravelMultiTenantManager\\Providers\\Service"
             ]
         }
     },

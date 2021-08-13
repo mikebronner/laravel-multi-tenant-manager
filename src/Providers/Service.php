@@ -53,12 +53,6 @@ class Service extends ServiceProvider
 
     public function register()
     {
-        $this->mergeConfigFrom(
-            __DIR__ . '/../../config/nova-multi-tenant-manager.php',
-            'nova-multi-tenant-manager'
-        );
-
-        $this->commands(Publish::class);
         $this->commands(AliasTenant::class);
         $this->commands(CreateTenant::class);
         $this->commands(DeleteTenant::class);
