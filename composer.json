@@ -13,6 +13,9 @@
         "illuminate/routing": "^8.0",
         "illuminate/support": "^8.0"
     },
+    "require-dev": {
+        "genealabs/php-coding-standards": "dev-main@dev"
+    },
     "autoload": {
         "psr-4": {
             "GeneaLabs\\LaravelMultiTenantManager\\": "src/"
