@@ -20,13 +20,13 @@ class Tenant
     public $hostname;
     public $website;
 
-    public function __construct(Hostname $hostname = null, Website $website = null)
+    public function __construct(?Hostname $hostname = null, Website $website = null)
     {
         $this->hostname = $hostname;
         $this->website = $website;
     }
 
-    public function create(string $domain = "", string $name = "") : self
+    public function create(string $domain = "", string $name = ""): self
     {
         $domain = $this->cleanDomain($domain);
 
@@ -48,7 +48,7 @@ class Tenant
         return $this;
     }
 
-    public function createAlias(string $domain = "", string $alias = "") : self
+    public function createAlias(string $domain = "", string $alias = ""): self
     {
         $alias = $this->cleanDomain($alias);
 
@@ -70,7 +70,7 @@ class Tenant
         return $this;
     }
 
-    public function delete(string $domain = "") : self
+    public function delete(string $domain = ""): self
     {
         if (! $this->exists($domain)) {
             throw new TenantDoesNotExistException("A tenant with domain '{$domain}' does not exist.");
@@ -95,7 +95,7 @@ class Tenant
         return $this;
     }
 
-    public function findByDomain(string $domain) : self
+    public function findByDomain(string $domain): self
     {
         $this->hostname = (new Hostname)
             ->with("website")
@@ -109,7 +109,7 @@ class Tenant
         return $this;
     }
 
-    public function findCurrent() : ?self
+    public function findCurrent(): ?self
     {
         $website = app(Environment::class)->tenant();
 
@@ -125,18 +125,18 @@ class Tenant
             ->first();
     }
 
-    public function findCurrentHostname() : Hostname
+    public function findCurrentHostname(): Hostname
     {
         return app(Environment::class)
             ->hostname();
     }
 
-    protected function cleanDomain(string $domain) : string
+    protected function cleanDomain(string $domain): string
     {
         return preg_replace('/.*?\:?\/\/(.*)/', "$1", $domain);
     }
 
-    protected function createTenant(string $domain, string $name)
+    protected function createTenant(string $domain, string $name): void
     {
         $tenant = (new TenantModel)
             ->firstOrNew([
@@ -147,7 +147,7 @@ class Tenant
         $tenant->save();
     }
 
-    protected function createWebsite(string $domain) : Website
+    protected function createWebsite(string $domain): Website
     {
         $this->website = new Website;
 
@@ -163,7 +163,7 @@ class Tenant
             ->create($this->website);
     }
 
-    protected function createHostname(string $domain)
+    protected function createHostname(string $domain): void
     {
         $this->hostname = new Hostname;
         $this->hostname->fqdn = $domain;
@@ -173,7 +173,7 @@ class Tenant
             ->attach($this->hostname, $this->website);
     }
 
-    public function switchToTenant(TenantModel $tenant = null)
+    public function switchToTenant(?TenantModel $tenant = null): void
     {
         if ($tenant) {
             $tenant->load("website");
@@ -183,7 +183,7 @@ class Tenant
         app(Environment::class)->tenant($website ?? $this->website);
     }
 
-    public function exists(string $domain) : bool
+    public function exists(string $domain): bool
     {
         $this->hostname = (new Hostname)
             ->with("website")
@@ -193,6 +193,7 @@ class Tenant
             ?->website;
 
         return $this->hostname
-            ?->exists;
+            ?->exists
+            ?? false;
     }
 }

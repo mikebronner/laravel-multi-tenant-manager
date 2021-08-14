@@ -24,16 +24,17 @@ class Tenant extends Model
         "name",
     ];
 
-    public function website() : BelongsTo
+    public function website(): BelongsTo
     {
         return $this->belongsTo(config('tenancy.models.website'));
     }
 
-    public function getAliasesAttribute() : Collection
+    public function getAliasesAttribute(): Collection
     {
         $this->load("website.hostnames");
 
-        if (! $this->website
+        if (
+            ! $this->website
             || !$this->website->hostnames
         ) {
             return collect();
