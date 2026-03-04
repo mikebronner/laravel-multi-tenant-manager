@@ -9,7 +9,7 @@
         {
             "type": "vcs",
             "url": "https://github.com/fabmade/multi-tenant"
-        },
+        }
     ],
     "require": {
         "hyn/multi-tenant": "dev-5.x@dev",
