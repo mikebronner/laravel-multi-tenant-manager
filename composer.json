@@ -5,8 +5,14 @@
         "laravel"
     ],
     "license": "MIT",
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/fabmade/multi-tenant"
+        },
+    ],
     "require": {
-        "hyn/multi-tenant": "^5.7",
+        "hyn/multi-tenant": "dev-5.x@dev",
         "illuminate/console": "^8.0",
         "illuminate/database": "^8.0",
         "illuminate/http": "^8.0",
